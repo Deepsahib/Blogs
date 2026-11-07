@@ -5,7 +5,7 @@ import { getUserMiddleware } from '../../middleware/user.middleware.js';
 const router=express();
 
 router.post("/create",upload.single("imageUrl"),getUserMiddleware,createBlog);
-router.get("/all",getAllBlogs);
+router.get("/all",getUserMiddleware,getAllBlogs);
 router.get("/user",getUserMiddleware,getUserBlogs);
 router.post("/edit/:id",updateBlog);
 router.get("/:id",getBlogById);

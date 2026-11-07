@@ -43,7 +43,8 @@ export const createBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
   try {
     const { user } = req;
-    const allBlogs = await getAllBlogsService();
+  
+    const allBlogs = await getAllBlogsService(user);
     if (!allBlogs) {
       return res.status(400).json({
         success: false,

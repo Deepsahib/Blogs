@@ -125,6 +125,8 @@ const AllBlog = () => {
                   <h3 className="text-xl font-semibold leading-snug tracking-tight sm:text-2xl">
                     {blog.title}
                   </h3>
+                  <h1>Likes</h1>
+                  {/* <h1>{count}</h1> */}
 
                   <p className="mt-3 text-sm leading-6 text-gray-500 sm:text-base">
                     {blog.description}

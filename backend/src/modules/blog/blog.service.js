@@ -17,8 +17,8 @@ export const createBlogService = async ({
   return blogCreated;
 };
 
-export const getAllBlogsService = async () => {
-  const blogs = await Blog.find();
+export const getAllBlogsService = async (id) => {
+  const blogs = await Blog.find({userId:{$ne:id}});
   return blogs;
 };
 
