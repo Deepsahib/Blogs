@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { loginUserService } from "../../services/register.jsx";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
@@ -33,8 +33,8 @@ const Login = () => {
 
       const response = await loginUserService(data);
         console.log("response from backend",response)
-      if (response.data.success) {
-        toast.success(response.message);
+      if (response.data.success==true) {
+        toast.success(response.data.message);
       }
       localStorage.setItem("token",response.data.token)
     } catch (error) {
@@ -63,6 +63,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-[#fbfbfd] font-sans text-[#1d1d1f]">
+   <Toaster position="top-right" />
    
 <GoogleLogin
   onSuccess={credentialResponse => {
@@ -158,14 +159,14 @@ const Login = () => {
               >
                 Password
               </label>
-
+ 
               <input
                 id="password"
                 value={data.password}
                 name="password"
                 onChange={handleDataChange}
               
-                minLength={7}
+                
                 type={showpassword?"text":"password"}
                 autoComplete="current-password"
                 placeholder="Enter your password"
@@ -212,6 +213,10 @@ const Login = () => {
 
         </div>
       </main>
+       
+
+
+  <button onClick={()=>toast.success("hello world")}>Test toast</button>
 
       {/* Footer */}
       <footer className="py-6 text-center">

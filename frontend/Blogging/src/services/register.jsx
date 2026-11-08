@@ -42,3 +42,8 @@ export const deleteBlogService=async(id)=>{
   const response=await api.delete(`api/v1/blog/delete/${id}`);
   return response;
 }
+
+export const likeBlogService=async(blogId,status)=>{
+ const response=await api.post(`api/v1/blog/like/${blogId}`,{status:status});
+ return response;
+}

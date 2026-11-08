@@ -1,14 +1,7 @@
 import { validateRegisterUser } from "./auth.validation.js";
-import {
-  getRefreshTokenService,
-  loginUserService,
-  registerUserService,
-} from "./auth.service.js";
+import { getRefreshTokenService, loginUserService, registerUserService } from "./auth.service.js";
 import { GoogleAuth } from "google-auth-library";
-import {
-  errorMessage,
-  successMessage,
-} from "../../config/errohandler/errorhandler.js";
+import { errorMessage, successMessage } from "../../config/errohandler/errorhandler.js";
 import { verifyJwt } from "../../config/jwt/jwt.js";
 
 export const registerUser = async (req, res) => {
@@ -39,10 +32,10 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const loginuser = await loginUserService({ email, password });
-  
+
     if (loginuser) {
       res.cookie("refreshToken", `${loginuser.refreshToken}`, {
-        maxAge: 16 * 60 * 1000,
+        maxAge: 15 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
     }
@@ -66,26 +59,19 @@ export const loginUser = async (req, res) => {
 export const refreshToken = async (req, res) => {
   try {
     const cookie = req.cookies;
+    if(!cookie.refreshToken){
+      return res.status(200).json({
+        status:false,
+        message:"Refresh token has been expired"
+      })
+    }
 
     const verifycookie = await verifyJwt(cookie.refreshToken);
 
     const getrefreshToken = await getRefreshTokenService(verifycookie.userId);
 
-    return successMessage(
-      res,
-      200,
-      true,
-      getrefreshToken,
-      "confirguring token",
-      "hitted refresh token",
-    );
+    return successMessage(res, 200, true, getrefreshToken, "confirguring token", "hitted refresh token");
   } catch (error) {
-    return errorMessage(
-      res,
-      400,
-      false,
-      error.message,
-      "Erron in refresh token",
-    );
+    return errorMessage(res, 400, false, error.message, "Erron in refresh token");
   }
 };
