@@ -6,11 +6,14 @@ const AllBlog = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [page, setpage] = useState(1);
   const navigate = useNavigate();
+
+  const limit = 10;
 
   async function getAllBlogs() {
     try {
-      const response = await getAllBlogsService();
+      const response = await getAllBlogsService(page,limit);
       setData(response.data.data);
     } catch (err) {
       setError("Unable to load articles. Please try again later.");
@@ -21,7 +24,7 @@ const AllBlog = () => {
 
   useEffect(() => {
     getAllBlogs();
-  }, []);
+  }, [page]);
 
   function handleBlogClick(id) {
     navigate(`/blog/${id}`);
@@ -30,6 +33,16 @@ const AllBlog = () => {
   async function handleBlogLike(blog) {
     const likeblog = await likeBlogService(blog._id, true);
     getAllBlogs();
+  }
+
+  function handleNextClick() {
+    setpage((prev) => prev + 1);
+
+  }
+
+  function handlePreviousClick() {
+    setpage((prev) => prev - 1);
+    
   }
 
   return (
@@ -132,7 +145,9 @@ const AllBlog = () => {
                     }}
                     className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-500 transition hover:border-gray-900 hover:text-gray-900"
                   >
-                    <span className={blog.isLiked ? "text-red-500" : "text-gray-400"} aria-hidden="true">♡</span>
+                    <span className={blog.isLiked ? "text-red-500" : "text-gray-400"} aria-hidden="true">
+                      ♡
+                    </span>
                     <span>{blog?.likes?.length || 0}</span>
                   </div>
                   <p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-500 sm:text-base">{blog.description}</p>
@@ -152,7 +167,8 @@ const AllBlog = () => {
           </div>
         )}
       </section>
-
+      <h1 onClick={handleNextClick}>Next</h1>
+      <h1 onClick={handlePreviousClick}>Previous</h1>
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-gray-400 sm:flex-row sm:items-center sm:justify-between sm:px-10">

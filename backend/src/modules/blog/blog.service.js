@@ -17,15 +17,19 @@ export const createBlogService = async ({
   return blogCreated;
 };
 
-export const getAllBlogsService = async (id) => {
-  const blogs = await Blog.find({ userId: { $ne: id } });
+export const getAllBlogsService = async (id,page,limit) => {
+  const skip = (page - 1) * limit;
+  const blogs = await Blog.find({ userId: { $ne: id } }).skip(skip).limit(limit).sort({createdAt:-1});
+   
   const returnData=blogs.map((a,b)=>{
     return {
-      ...a.toObject(),isLiked:a.likes.includes(id)
+      ...a.toObject(),isLiked:a.likes.includes(id),
     }
   })
+  const count=await Blog.countDocuments(blogs);
   return {
     data:returnData,
+    count
   }
 };
 

@@ -17,8 +17,8 @@ export const createBlogService = async (data) => {
   return response;
 };
 
-export const getAllBlogsService = async () => {
-  const repsonse = await api.get("api/v1/blog/all");
+export const getAllBlogsService = async (page,limit) => {
+  const repsonse = await api.get(`api/v1/blog/all?page=${page}&limit=${limit}`);
   return repsonse.data;
 };
 

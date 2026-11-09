@@ -53,7 +53,7 @@ const BlogByID = () => {
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
               {data.title}
             </h1>
-
+               
             <div className="w-16 h-1 bg-black rounded-full mb-8"></div>
 
             <p className="text-gray-600 text-lg leading-9 whitespace-pre-wrap">

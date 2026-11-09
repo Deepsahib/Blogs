@@ -37,8 +37,11 @@ export const createBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
   try {
     const { user } = req;
+    const {page,limit}=req.query;
+    console.log("page",page)
+    console.log("limit",limit)
 
-    const allBlogs = await getAllBlogsService(user);
+    const allBlogs = await getAllBlogsService(user,page,limit);
     
     if (!allBlogs) {
       return res.status(400).json({
