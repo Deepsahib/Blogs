@@ -10,7 +10,7 @@ router.get("/user",getUserMiddleware,getUserBlogs);
 router.post("/edit/:id",updateBlog);
 router.get("/:id",getBlogById);
 router.delete("/delete/:id",deleteUserBlogs);
-router.post("/like/:id",likeUserBlog);
+router.post("/like/:id",getUserMiddleware,likeUserBlog);
 
 
 export {router as blogroutes};

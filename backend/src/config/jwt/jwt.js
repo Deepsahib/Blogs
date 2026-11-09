@@ -8,7 +8,7 @@ export const getAccessToken = async (userId) => {
 
 export const getRefreshToken = async (userId) => {
   const refreshToken = jwt.sign({ userId }, env.jwtRefreshToken, {
-    expiresIn: "1h",
+    expiresIn: "15d",
   });
   return refreshToken;
 };

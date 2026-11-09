@@ -12,7 +12,6 @@ export const createBlogService = async ({
     description,
     imageUrl: imagekitImageUrl.url,
     userId: user,
-    likes:0
   });
 
   return blogCreated;
@@ -20,7 +19,14 @@ export const createBlogService = async ({
 
 export const getAllBlogsService = async (id) => {
   const blogs = await Blog.find({ userId: { $ne: id } });
-  return blogs;
+  const returnData=blogs.map((a,b)=>{
+    return {
+      ...a.toObject(),isLiked:a.likes.includes(id)
+    }
+  })
+  return {
+    data:returnData,
+  }
 };
 
 export const getBlogsByIdService = async (id) => {
@@ -52,10 +58,18 @@ export const deleteBlogService = async (id) => {
   return deleteBlog;
 };
 
-export const likeUserBlogService=async(id)=>{
-  const likeblog=await Blog.findById(id);
-  console.log("like blog is ",likeblog);
-  likeblog.likes+=1;
-  likeblog.save();
- return true;  
+export const likeUserBlogService=async(id,user)=>{
+  const likeblog=await Blog.findByIdAndUpdate(id,{$addToSet:{likes:user}},{new:true});
+   return {
+    data:likeblog,
+    length:likeblog.likes.length
+   };  
+}
+
+export const dislikeBlogService=async(id,user)=>{
+const dislikeBlog=await Blog.findByIdAndUpdate(id,{$pull:{likes:user}},{new:true});
+ return {
+  data:dislikeBlog,
+  length:dislikeBlog.likes.length
+ };
 }

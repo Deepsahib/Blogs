@@ -1,9 +1,11 @@
 import uploadToCloudinary from "../../config/cloudinary.config.js";
 import { errorMessage, successMessage } from "../../config/errohandler/errorhandler.js";
 import { uploadToImagekit } from "../../config/imagekitImageuploader.js";
+import Blog from "./blog.model.js";
 import {
   createBlogService,
   deleteBlogService,
+  dislikeBlogService,
   getAllBlogsService,
   getBlogsByIdService,
   getUserBlogsSercvice,
@@ -37,22 +39,16 @@ export const getAllBlogs = async (req, res) => {
     const { user } = req;
 
     const allBlogs = await getAllBlogsService(user);
+    
     if (!allBlogs) {
       return res.status(400).json({
         success: false,
         message: "No blog has been found",
       });
     }
-    return res.status(200).json({
-      success: true,
-      data: allBlogs,
-      message: "All blogs has been fetched successfully",
-    });
+    return successMessage(res, 200, true, allBlogs, "All blogs has been fetched successfully");
   } catch (error) {
-    return res.status(400).json({
-      succes: false,
-      message: `There was a error fetch blog ${error.message}`,
-    });
+    return errorMessage(res, 400, false, error.message, "There has been error fetching blogs");
   }
 };
 
@@ -61,17 +57,11 @@ export const getBlogById = async (req, res) => {
     const { id } = req.params;
     const blogById = await getBlogsByIdService(id);
     if (blogById) {
-      return res.status(200).json({
-        success: true,
-        data: blogById,
-        messsage: "You blog has been fetched",
-      });
+     return successMessage(res,200,true,blogById,"Your blog has been fetched")
     }
   } catch (error) {
-    return res.status(400).json({
-      succes: "false",
-      message: error.message,
-    });
+     return console.error(res,400,false,error.message,"Error fetching your blogs");
+     
   }
 };
 
@@ -92,7 +82,7 @@ export const getUserBlogs = async (req, res) => {
 
     const userBlogs = await getUserBlogsSercvice(user);
 
-    let sahib = successMessage(res, 200, "true", userBlogs, "Fetched successfully");
+    return successMessage(res, 200, "true", userBlogs, "Fetched successfully");
   } catch (error) {
     return errorMessage("false", error.message, "we are not able to get user blogs");
   }
@@ -109,12 +99,19 @@ export const deleteUserBlogs = async (req, res) => {
 };
 
 export const likeUserBlog = async (req, res) => {
-  console.log("came to likeuserbloh");
-  const { status } = req.body;
-  console.log("status is ", status);
-  const { id } = req.params;
-  const likeuserblog = await likeUserBlogService(id);
-  if (likeUserBlog) {
-    res.send("Hello world");
-  }
-};
+try {
+  const {id}=req.params;
+ const {user}=req;
+ const checkBlogLikesstatus=await Blog.findById(id);
+ let result;
+ if(checkBlogLikesstatus.likes.includes(user)){
+   result=await dislikeBlogService(id,user)
+ }
+ else{
+  result=await likeUserBlogService(id,user)
+ }
+ return successMessage(res,200,true,result,"Blog likes has been updated successfully")
+} catch (error) {
+  return errorMessage(res,400,error.message,"There has been error liking this blog")
+}
+}

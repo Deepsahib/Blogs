@@ -59,11 +59,12 @@ export const loginUser = async (req, res) => {
 export const refreshToken = async (req, res) => {
   try {
     const cookie = req.cookies;
-    if(!cookie.refreshToken){
+    console.log("cookie is ", cookie);
+    if (!cookie.refreshToken) {
       return res.status(200).json({
-        status:false,
-        message:"Refresh token has been expired"
-      })
+        status: false,
+        message: "Refresh token has been expired",
+      });
     }
 
     const verifycookie = await verifyJwt(cookie.refreshToken);
