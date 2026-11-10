@@ -47,3 +47,8 @@ export const likeBlogService=async(blogId,status)=>{
  const response=await api.post(`api/v1/blog/like/${blogId}`,{status:status});
  return response;
 }
+
+export const getUserProfileService=async()=>{
+  const response=await api.get("api/v1/user/getProfile");
+  return response
+}

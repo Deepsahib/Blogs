@@ -38,9 +38,7 @@ export const getAllBlogs = async (req, res) => {
   try {
     const { user } = req;
     const {page,limit}=req.query;
-    console.log("page",page)
-    console.log("limit",limit)
-
+    
     const allBlogs = await getAllBlogsService(user,page,limit);
     
     if (!allBlogs) {

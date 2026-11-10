@@ -7,14 +7,18 @@ const AllBlog = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setpage] = useState(1);
+  const [totalpage, settotalpage] = useState(0)
   const navigate = useNavigate();
 
   const limit = 10;
+  
 
   async function getAllBlogs() {
     try {
       const response = await getAllBlogsService(page,limit);
       setData(response.data.data);
+      const totalPages = Math.ceil(response.data.count / limit);
+      settotalpage(totalPages)
     } catch (err) {
       setError("Unable to load articles. Please try again later.");
     } finally {
@@ -36,11 +40,17 @@ const AllBlog = () => {
   }
 
   function handleNextClick() {
+    if(page===totalpage){
+      return
+    }
     setpage((prev) => prev + 1);
 
   }
 
   function handlePreviousClick() {
+    if(page==1){
+      return 
+    }
     setpage((prev) => prev - 1);
     
   }
@@ -168,6 +178,7 @@ const AllBlog = () => {
         )}
       </section>
       <h1 onClick={handleNextClick}>Next</h1>
+      <h1>Showing {page} out of {totalpage}</h1>
       <h1 onClick={handlePreviousClick}>Previous</h1>
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white">

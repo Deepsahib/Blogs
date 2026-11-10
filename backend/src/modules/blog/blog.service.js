@@ -26,7 +26,7 @@ export const getAllBlogsService = async (id,page,limit) => {
       ...a.toObject(),isLiked:a.likes.includes(id),
     }
   })
-  const count=await Blog.countDocuments(blogs);
+  const count=await Blog.countDocuments({userId:{$ne:id}});
   return {
     data:returnData,
     count

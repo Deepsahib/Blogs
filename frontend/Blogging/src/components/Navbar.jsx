@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Myprofile from "./Myprofile.jsx";
 
 const Navbar = () => {
 
@@ -41,6 +42,7 @@ const Navbar = () => {
           ))}
         </div>
       </div>
+       <Myprofile/>
     </nav>
   );
 };
