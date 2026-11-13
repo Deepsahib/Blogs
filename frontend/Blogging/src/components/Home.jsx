@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar.jsx";
-import AllBlog from "./AllBlog.jsx";
-import Myprofile from "./Myprofile.jsx";
+import AllBlog from "../pages/AllBlog.jsx";
+import Myprofile from "../pages/Myprofile.jsx";
 
 const Home = () => {
   return (

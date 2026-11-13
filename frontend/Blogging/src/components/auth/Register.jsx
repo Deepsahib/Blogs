@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { registerUser } from "../../services/User.service.jsx";
+import { registerUser } from "../../services/userService.js";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 

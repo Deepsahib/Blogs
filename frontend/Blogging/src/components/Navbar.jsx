@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Myprofile from "./Myprofile.jsx";
+import Myprofile from "../pages/Myprofile.jsx";
 
 const Navbar = () => {
 

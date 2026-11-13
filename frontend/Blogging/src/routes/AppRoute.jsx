@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Register from "../components/auth/Register.jsx";
 import Login from "../components/auth/Login.jsx";
 import Home from "../components/Home.jsx";
-import CreateBlog from "../components/CreateBlog.jsx";
-import BlogByID from "../components/BlogByID.jsx";
-import Blogs from "../components/Blogs.jsx";
+import CreateBlog from "../pages/CreateBlog.jsx";
+import BlogByID from "../pages/BlogByID.jsx";
+import Blogs from "../pages/Blogs.jsx";
 
 const AppRoute = () => {
   return (

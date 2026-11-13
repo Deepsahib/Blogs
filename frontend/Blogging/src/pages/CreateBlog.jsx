@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createBlogService } from "../services/Blog.service.jsx";
+import { createBlogService } from "../services/blogService.js";
 import toast from "react-hot-toast";
 
 const styles = {
