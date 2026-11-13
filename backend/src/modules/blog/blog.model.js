@@ -15,6 +15,9 @@ const blogSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
     },
+    category:{
+      type:String
+    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,

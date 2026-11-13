@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createBlogService } from "../services/register.jsx";
+import { createBlogService } from "../services/Blog.service.jsx";
 import toast from "react-hot-toast";
 
 const styles = {
@@ -108,6 +108,7 @@ const CreateBlog = () => {
   const [data, setdata] = useState({
     title: "",
     description: "",
+    category:""
   });
 
   const [image, setimage] = useState(null);
@@ -129,6 +130,7 @@ const CreateBlog = () => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("description", data.description);
+    formdata.append("category",data.category)
     formdata.append("imageUrl", image);
 
     return formdata;
@@ -137,7 +139,9 @@ const CreateBlog = () => {
   async function hanldeFormSubmit(e) {
     try {
       e.preventDefault();
+      
       let data = Modifieddata();
+      console.log("data is ",data);
       if (data) {
         const response = await createBlogService(data);
       }
@@ -146,6 +150,8 @@ const CreateBlog = () => {
       console.log("error is", error.response);
     }
   }
+
+  
 
   return (
     <main style={styles.page}>
@@ -186,6 +192,15 @@ const CreateBlog = () => {
               rows="7"
               style={{ ...styles.input, resize: "vertical", lineHeight: 1.6 }}
             />
+          </div>
+
+          <div>
+            <select onChange={handleDataChange} value={data.category} name="category" id="">
+              <option value="option">Select Option</option>
+              <option value="Technology">Technology</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Fitness">Fitness</option>
+            </select>
           </div>
 
           <div style={styles.field}>

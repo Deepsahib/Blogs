@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteBlogService, EditBlogService, getUserBlogsService } from "../services/register.jsx";
+import { deleteBlogService, EditBlogService, getUserBlogsService } from "../services/Blog.service.jsx";
 import toast, { Toaster } from "react-hot-toast";
 
 const Blogs = () => {

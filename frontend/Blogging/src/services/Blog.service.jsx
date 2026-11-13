@@ -1,23 +1,11 @@
 import api from "../api/axios.js";
 
-export const registerUser = async (data) => {
-  const response = await api.post("/api/v1/auth/register", data);
-  return response;
-};
-
-export const loginUserService = async (data) => {
-  const response = await api.post("/api/v1/auth/login", data, {
-    withCredentials: true,
-  });
-  return response;
-};
-
 export const createBlogService = async (data) => {
   const response = await api.post("api/v1/blog/create", data);
   return response;
 };
 
-export const getAllBlogsService = async (page,limit) => {
+export const getAllBlogsService = async (page, limit) => {
   const repsonse = await api.get(`api/v1/blog/all?page=${page}&limit=${limit}`);
   return repsonse.data;
 };
@@ -33,9 +21,9 @@ export const getUserBlogsService = async () => {
   return response.data;
 };
 
-export const EditBlogService = async (id,data) => {
+export const EditBlogService = async (id, data) => {
   const response = await api.post(`api/v1/blog/edit/${id}`, data);
-  return response
+  return response;
 };
 
 export const deleteBlogService=async(id)=>{
@@ -46,9 +34,4 @@ export const deleteBlogService=async(id)=>{
 export const likeBlogService=async(blogId,status)=>{
  const response=await api.post(`api/v1/blog/like/${blogId}`,{status:status});
  return response;
-}
-
-export const getUserProfileService=async()=>{
-  const response=await api.get("api/v1/user/getProfile");
-  return response
 }

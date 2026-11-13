@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getBlogById } from '../services/register.jsx';
+import { getBlogById } from '../services/Blog.service.jsx';
 import { useParams } from 'react-router-dom';
 
 const BlogByID = () => {

@@ -15,7 +15,7 @@ import {
 
 export const createBlog = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description,category } = req.body;
     const { user } = req;
     const file = req.file;
 
@@ -24,6 +24,7 @@ export const createBlog = async (req, res) => {
     const create = await createBlogService({
       title,
       description,
+      category,
       imagekitImageUrl,
       user,
     });

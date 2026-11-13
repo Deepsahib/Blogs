@@ -3,6 +3,7 @@ import Blog from "./blog.model.js";
 export const createBlogService = async ({
   title,
   description,
+  category,
   imagekitImageUrl,
   user,
 }) => {
@@ -12,6 +13,7 @@ export const createBlogService = async ({
     description,
     imageUrl: imagekitImageUrl.url,
     userId: user,
+    category
   });
 
   return blogCreated;
