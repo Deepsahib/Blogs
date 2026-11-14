@@ -35,3 +35,8 @@ export const likeBlogService=async(blogId,status)=>{
  const response=await api.post(`api/v1/blog/like/${blogId}`,{status:status});
  return response;
 }
+
+export const commentBlogService=async(id,comment)=>{
+  const response=await api.post(`api/v1/blog/comment/${id}`,{comment:comment});
+  return response.data;
+}

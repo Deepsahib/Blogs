@@ -2,6 +2,7 @@ import { errorMessage, successMessage } from "../../config/errohandler/errorhand
 import { uploadToImagekit } from "../../config/imagekitImageuploader.js";
 import Blog from "./blog.model.js";
 import {
+  commentBlogService,
   createBlogService,
   deleteBlogService,
   dislikeBlogService,
@@ -14,7 +15,7 @@ import {
 
 export const createBlog = async (req, res) => {
   try {
-    const { title, description,category } = req.body;
+    const { title, description, category } = req.body;
     const { user } = req;
     const file = req.file;
 
@@ -37,10 +38,10 @@ export const createBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
   try {
     const { user } = req;
-    const {page,limit}=req.query;
-    
-    const allBlogs = await getAllBlogsService(user,page,limit);
-    
+    const { page, limit } = req.query;
+
+    const allBlogs = await getAllBlogsService(user, page, limit);
+
     if (!allBlogs) {
       return res.status(400).json({
         success: false,
@@ -58,11 +59,10 @@ export const getBlogById = async (req, res) => {
     const { id } = req.params;
     const blogById = await getBlogsByIdService(id);
     if (blogById) {
-     return successMessage(res,200,true,blogById,"Your blog has been fetched")
+      return successMessage(res, 200, true, blogById, "Your blog has been fetched");
     }
   } catch (error) {
-     return console.error(res,400,false,error.message,"Error fetching your blogs");
-     
+    return console.error(res, 400, false, error.message, "Error fetching your blogs");
   }
 };
 
@@ -100,19 +100,33 @@ export const deleteUserBlogs = async (req, res) => {
 };
 
 export const likeUserBlog = async (req, res) => {
-try {
-  const {id}=req.params;
- const {user}=req;
- const checkBlogLikesstatus=await Blog.findById(id);
- let result;
- if(checkBlogLikesstatus.likes.includes(user)){
-   result=await dislikeBlogService(id,user)
+  try {
+    const { id } = req.params;
+    const { user } = req;
+    const checkBlogLikesstatus = await Blog.findById(id);
+    let result;
+    if (checkBlogLikesstatus.likes.includes(user)) {
+      result = await dislikeBlogService(id, user);
+    } else {
+      result = await likeUserBlogService(id, user);
+    }
+    return successMessage(res, 200, true, result, "Blog likes has been updated successfully");
+  } catch (error) {
+    return errorMessage(res, 400, error.message, "There has been error liking this blog");
+  }
+};
+
+export const commentBlog=async(req,res)=>{
+ try {
+   const {comment}=req.body;
+   console.log("comment is ",comment);
+   const {id}=req.params;
+   
+  const blogComment=await commentBlogService(comment,id);
+  
+  return successMessage(res,200,true,blogComment,"Your comment has been posted")
+
+ } catch (error) {
+  return errorMessage(res,400,false,error.message,"Error commenting this blog")
  }
- else{
-  result=await likeUserBlogService(id,user)
- }
- return successMessage(res,200,true,result,"Blog likes has been updated successfully")
-} catch (error) {
-  return errorMessage(res,400,error.message,"There has been error liking this blog")
-}
 }
