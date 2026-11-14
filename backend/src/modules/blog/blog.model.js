@@ -15,19 +15,27 @@ const blogSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
     },
-    category:{
-      type:String
+    category: {
+      type: String,
     },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
-     {default:0}
+      { default: 0 },
     ],
-   comments:[
-    {type:String}
-   ]
+    comments: [
+      {
+        comment: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true },
 );

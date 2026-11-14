@@ -76,7 +76,8 @@ export const dislikeBlogService = async (id, user) => {
 export const commentBlogService=async(comment,id)=>{
 
   const blogs=await Blog.findById(id);
-  blogs.comments.push(comment);
+  
+  blogs.comments.push({comment:comment});
   blogs.save();
   return blogs;
 

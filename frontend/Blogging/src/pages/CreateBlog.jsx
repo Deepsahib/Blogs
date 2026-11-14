@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createBlogService } from "../services/blogService.js";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const styles = {
   page: {
@@ -108,7 +108,7 @@ const CreateBlog = () => {
   const [data, setdata] = useState({
     title: "",
     description: "",
-    category:""
+    category: "",
   });
 
   const [image, setimage] = useState(null);
@@ -130,7 +130,7 @@ const CreateBlog = () => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("description", data.description);
-    formdata.append("category",data.category)
+    formdata.append("category", data.category);
     formdata.append("imageUrl", image);
 
     return formdata;
@@ -139,97 +139,92 @@ const CreateBlog = () => {
   async function hanldeFormSubmit(e) {
     try {
       e.preventDefault();
-      
       let data = Modifieddata();
-    
       if (data) {
         const response = await createBlogService(data);
-        toast.success(response.data.message)
+        toast.success(response.data.message);
       }
-      
     } catch (error) {
       console.log("error is", error.response);
     }
   }
 
-  
-
   return (
-    <main style={styles.page}>
-      <section style={styles.card}>
-        <p style={styles.eyebrow}>Share your story</p>
-        <h1 style={styles.title}>Create a new blog</h1>
-        <p style={styles.intro}>
-          Turn your ideas into something worth reading. Add a title, tell your
-          story, and choose a cover image.
-        </p>
+    <>
+      <Toaster />
+      <main style={styles.page}>
+        <section style={styles.card}>
+          <p style={styles.eyebrow}>Share your story</p>
+          <h1 style={styles.title}>Create a new blog</h1>
+          <p style={styles.intro}>
+            Turn your ideas into something worth reading. Add a title, tell your story, and choose a cover image.
+          </p>
 
-        <form action="" onSubmit={hanldeFormSubmit}>
-          <div style={styles.field}>
-            <label style={styles.label} htmlFor="blog-title">
-              Blog title
-            </label>
-            <input
-              id="blog-title"
-              name="title"
-              onChange={handleDataChange}
-              value={data.title}
-              type="text"
-              placeholder="Give your blog a memorable title"
-              style={styles.input}
-            />
-          </div>
-
-          <div style={styles.field}>
-            <label style={styles.label} htmlFor="blog-description">
-              Your story
-            </label>
-            <textarea
-              id="blog-description"
-              name="description"
-              onChange={handleDataChange}
-              value={data.description}
-              placeholder="What would you like to share?"
-              rows="7"
-              style={{ ...styles.input, resize: "vertical", lineHeight: 1.6 }}
-            />
-          </div>
-
-          <div>
-            <select onChange={handleDataChange} value={data.category} name="category" id="">
-              <option value="option">Select Option</option>
-              <option value="Technology">Technology</option>
-              <option value="Fashion">Fashion</option>
-              <option value="Fitness">Fitness</option>
-            </select>
-          </div>
-
-          <div style={styles.field}>
-            <span style={styles.label}>Cover image</span>
-            <div style={styles.upload}>
-              <label style={styles.fileButton} htmlFor="blog-image">
-                Choose image
+          <form action="" onSubmit={hanldeFormSubmit}>
+            <div style={styles.field}>
+              <label style={styles.label} htmlFor="blog-title">
+                Blog title
               </label>
-              <span style={styles.fileName}>
-                {image ? image.name : "JPG, PNG or WEBP"}
-              </span>
               <input
-                onChange={handleImageChange}
-                type="file"
-                name="imageUrl"
-                id="blog-image"
-                accept="image/*"
-                hidden
+                id="blog-title"
+                name="title"
+                onChange={handleDataChange}
+                value={data.title}
+                type="text"
+                placeholder="Give your blog a memorable title"
+                style={styles.input}
               />
             </div>
-          </div>
 
-          <button type="submit" style={styles.button}>
-            Publish blog
-          </button>
-        </form>
-      </section>
-    </main>
+            <div style={styles.field}>
+              <label style={styles.label} htmlFor="blog-description">
+                Your story
+              </label>
+              <textarea
+                id="blog-description"
+                name="description"
+                onChange={handleDataChange}
+                value={data.description}
+                placeholder="What would you like to share?"
+                rows="7"
+                style={{ ...styles.input, resize: "vertical", lineHeight: 1.6 }}
+              />
+            </div>
+
+            <div>
+              <select onChange={handleDataChange} value={data.category} name="category" id="">
+                <option value="option">Select Option</option>
+                <option value="Technology">Technology</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Fitness">Fitness</option>
+              </select>
+            </div>
+
+            <div style={styles.field}>
+              <span style={styles.label}>Cover image</span>
+              <div style={styles.upload}>
+                <label style={styles.fileButton} htmlFor="blog-image">
+                  Choose image
+                </label>
+                <span style={styles.fileName}>{image ? image.name : "JPG, PNG or WEBP"}</span>
+                <input
+                  onChange={handleImageChange}
+                  type="file"
+                  name="imageUrl"
+                  id="blog-image"
+                  accept="image/*"
+                  hidden
+                />
+              </div>
+            </div>
+
+            <button type="submit" style={styles.button}>
+              Publish blog
+            </button>
+          </form>
+        </section>
+      </main>
+    </>
   );
 };
 

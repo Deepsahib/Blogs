@@ -53,6 +53,11 @@ const BlogByID = () => {
     getBlogsById();
   }
 
+const ans = data.comments.sort((a, b) => {
+  return new Date(b.createdAt) - new Date(a.createdAt);
+});
+console.log("data is ",ans);
+
   return (
     <div className="min-h-screen bg-[#f7f7f5] px-4 py-8 sm:px-6 sm:py-12">
       <main className="mx-auto max-w-5xl">
@@ -78,6 +83,7 @@ const BlogByID = () => {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Discussion</p>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-gray-900">Join the conversation</h2>
             </div>
+            {data.comments.length}
             <button
               type="button"
               onClick={handleComments}
@@ -86,6 +92,7 @@ const BlogByID = () => {
               Add a comment
             </button>
           </div>
+          
 
           {showcomments && (
             <form onSubmit={handleCommentSubmit} className="mt-6 flex flex-col gap-3 border-t border-gray-100 pt-6 sm:flex-row">
@@ -109,7 +116,7 @@ const BlogByID = () => {
           <div className="mt-8 space-y-3">
             {data.comments.map((a, index) => (
               <div key={index} className="rounded-xl bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-700">
-                {a}
+                {a.comment}
               </div>
             ))}
           </div>
