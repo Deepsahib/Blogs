@@ -1,4 +1,3 @@
-import uploadToCloudinary from "../../config/cloudinary.config.js";
 import { errorMessage, successMessage } from "../../config/errohandler/errorhandler.js";
 import { uploadToImagekit } from "../../config/imagekitImageuploader.js";
 import Blog from "./blog.model.js";
@@ -29,7 +28,7 @@ export const createBlog = async (req, res) => {
       user,
     });
 
-    return successMessage(res, 200, true, create, "All blogs has been fetched successfully");
+    return successMessage(res, 200, true, create, "Your Blog Has Been Created Successfully");
   } catch (error) {
     return errorMessage(res, 400, false, error.message, "There has been error fetching blogs");
   }

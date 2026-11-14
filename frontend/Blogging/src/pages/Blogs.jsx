@@ -50,7 +50,7 @@ const Blogs = () => {
   }
 
   function handleEditBlog(item) {
-    console.log("item is ",item);
+   
     setid(item._id);
     setvalues({
       title:item.title,
@@ -60,10 +60,10 @@ const Blogs = () => {
   }
   
   async function hanldeBlogDelete(item){
-    console.log("came here in delete function ")
+    
     setopendelete(true);
      const deleteBlog=await deleteBlogService(item._id);
-    console.log("response",deleteBlog)
+   
     getUserBlogs();
   }
 

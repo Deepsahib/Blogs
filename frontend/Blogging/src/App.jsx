@@ -1,9 +1,8 @@
-import AppRoute from './routes/appRoute.jsx'
+import AppRoute from './routes/AppRoute.jsx'
 
 const App = () => {
   return (
-   <AppRoute/>
-  
+  <AppRoute/>
   )
 }
 

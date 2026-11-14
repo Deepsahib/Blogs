@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+ 
   const navigate = useNavigate();
 
   const [data, setdata] = useState({
@@ -19,7 +20,7 @@ const Register = () => {
       e.preventDefault();
       setloading(true)
       const response = await registerUser(data);
-      console.log("response",response.success)
+    
       if(response.data.success){
              setloading(false)
              setdata({

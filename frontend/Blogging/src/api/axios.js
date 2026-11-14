@@ -32,28 +32,22 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (
-      error.response?.status === 400 &&
-      error.response.data.message == "Unauthorised"
-    ) {
+    if (error.response?.status === 400 && error.response.data.message == "Unauthorised") {
       try {
-        console.log("coming to this api");
         // if (!refreshPromise) {
-        //   refreshPromise = 
-          refreshApi
-            .post("/api/v1/auth/refresh-token")
-            .then((response) => {
-              console.log("api interceptor response",response);
-              const newToken = response.data.data;
+        //   refreshPromise =
+        refreshApi
+          .post("/api/v1/auth/refresh-token")
+          .then((response) => {
+            const newToken = response.data.data;
 
-              localStorage.setItem("token", newToken);
+            localStorage.setItem("token", newToken);
 
-              return newToken;
-            })
-            .finally(() => {
-              refreshPromise = null;
-            });
-        
+            return newToken;
+          })
+          .finally(() => {
+            refreshPromise = null;
+          });
 
         // const newToken = await refreshPromise;
 

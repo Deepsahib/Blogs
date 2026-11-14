@@ -1,10 +1,12 @@
-import React from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Myprofile from "../pages/Myprofile.jsx";
 
 const Navbar = () => {
+ 
 
   const navigate=useNavigate();
+
 
   const navbaritems = [
     { title: "Home", path: "/" },
@@ -18,6 +20,7 @@ const Navbar = () => {
   function handleRoutes(path) {
     navigate(path)
   }
+
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-gray-200/70 bg-white/80 backdrop-blur-xl">

@@ -1,14 +1,12 @@
-import React from "react";
-import Navbar from "./Navbar.jsx";
-import AllBlog from "../pages/AllBlog.jsx";
-import Myprofile from "../pages/Myprofile.jsx";
+import Navbar from './Navbar.jsx' 
+import AllBlog from '../pages/AllBlog.jsx'
 
 const Home = () => {
+ 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <AllBlog />
-     
     </div>
   );
 };

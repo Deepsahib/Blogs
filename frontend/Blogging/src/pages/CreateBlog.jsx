@@ -141,11 +141,12 @@ const CreateBlog = () => {
       e.preventDefault();
       
       let data = Modifieddata();
-      console.log("data is ",data);
+    
       if (data) {
         const response = await createBlogService(data);
+        toast.success(response.data.message)
       }
-      toast.success(response.message)
+      
     } catch (error) {
       console.log("error is", error.response);
     }

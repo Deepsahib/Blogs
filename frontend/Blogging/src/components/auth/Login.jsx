@@ -31,14 +31,13 @@ const Login = () => {
       e.preventDefault();
 
       const response = await loginUserService(data);
-      console.log("response from backend", response);
+
       if (response.data.success == true) {
         toast.success(response.data.message);
       }
       localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (error) {
-      console.log(error.response);
       toast.error(error?.response?.data?.message || "Something went wrong");
     }
   }
@@ -63,9 +62,7 @@ const Login = () => {
     <div className="min-h-screen bg-[#fbfbfd] font-sans text-[#1d1d1f]">
       <Toaster position="top-right" />
       <GoogleLogin
-        onSuccess={(credentialResponse) => {
-          console.log(credentialResponse);
-        }}
+        onSuccess={(credentialResponse) => {}}
         onError={() => {
           console.log("Login Failed");
         }}
