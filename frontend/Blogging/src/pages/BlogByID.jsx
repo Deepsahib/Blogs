@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { commentBlogService, getBlogById } from "../services/blogService.js";
+import { commentBlogService, getBlogById, getBlogCommentService } from "../services/blogService.js";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -25,6 +25,7 @@ const BlogByID = () => {
 
   useEffect(() => {
     getBlogsById();
+    getBlogComment();
   }, [id]);
 
   if (loading) {
@@ -56,7 +57,11 @@ const BlogByID = () => {
 const ans = data.comments.sort((a, b) => {
   return new Date(b.createdAt) - new Date(a.createdAt);
 });
-console.log("data is ",ans);
+
+async function getBlogComment(){
+   const getBlogComment=await getBlogCommentService(id);
+   console.log("getblo",getBlogComment);
+}
 
   return (
     <div className="min-h-screen bg-[#f7f7f5] px-4 py-8 sm:px-6 sm:py-12">

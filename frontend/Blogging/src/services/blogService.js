@@ -40,3 +40,8 @@ export const commentBlogService=async(id,comment)=>{
   const response=await api.post(`api/v1/blog/comment/${id}`,{comment:comment});
   return response.data;
 }
+
+export const getBlogCommentService=async(id)=>{
+const response=await api.get(`api/v1/blog/comments/${id}`);
+return response.data
+}

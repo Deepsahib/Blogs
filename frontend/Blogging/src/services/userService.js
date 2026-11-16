@@ -12,7 +12,13 @@ export const loginUserService = async (data) => {
   return response;
 };
 
-export const getUserProfileService=async()=>{
-  const response=await api.get("api/v1/user/getProfile");
-  return response
-}
+export const getUserProfileService = async () => {
+  const response = await api.get("api/v1/user/getProfile");
+  return response;
+};
+
+export const resetPasswordService = async (email) => {
+  const response = await api.post("api/v1/auth/forgot-password", { email: email });
+
+  return response;
+};

@@ -1,5 +1,5 @@
 import express from 'express';
-import { commentBlog, createBlog, deleteUserBlogs, getAllBlogs, getBlogById, getUserBlogs, likeUserBlog, updateBlog } from './blog.controller.js';
+import { commentBlog, createBlog, deleteUserBlogs, getAllBlogs, getBlogById, getBlogComment, getUserBlogs, likeUserBlog, updateBlog } from './blog.controller.js';
 import upload from '../../config/multer.js';
 import { getUserMiddleware } from '../../middleware/user.middleware.js';
 const router=express();
@@ -12,6 +12,7 @@ router.get("/:id",getBlogById);
 router.delete("/delete/:id",deleteUserBlogs);
 router.post("/like/:id",getUserMiddleware,likeUserBlog);
 router.post("/comment/:id",getUserMiddleware,commentBlog);
+router.get("/comments/:id",getUserMiddleware,getBlogComment);
 
 
 export {router as blogroutes};

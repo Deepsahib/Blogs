@@ -155,6 +155,7 @@ const Login = () => {
               </button>
               {errors.password && <p className="mt-2 text-xs text-red-500">{errors.password}</p>}
             </div>
+            <h1 onClick={()=>navigate("/forgot-password")}>Forgot password</h1>
 
             {/* Sign In Button */}
             <button
@@ -188,7 +189,7 @@ const Login = () => {
           </div>
         </div>
       </main>
-      <button onClick={() => toast.success("hello world")}>Test toast</button>
+      
       {/* Footer */}
       <footer className="py-6 text-center">
         <p className="text-xs text-[#a1a1a6]">© 2026 Studio. All rights reserved.</p>

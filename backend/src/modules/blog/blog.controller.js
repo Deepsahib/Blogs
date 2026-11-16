@@ -7,6 +7,7 @@ import {
   deleteBlogService,
   dislikeBlogService,
   getAllBlogsService,
+  getBlogCommentService,
   getBlogsByIdService,
   getUserBlogsSercvice,
   likeUserBlogService,
@@ -129,4 +130,15 @@ export const commentBlog=async(req,res)=>{
  } catch (error) {
   return errorMessage(res,400,false,error.message,"Error commenting this blog")
  }
+}
+
+export const getBlogComment=async(req,res)=>{
+   try {
+     const {id}=req.params;
+
+  const blogComment=await getBlogCommentService(id);
+  return successMessage(res,200,true,blogComment,"Success fetching Blog Comments")
+   } catch (error) {
+    return errorMessage(res,400,true,error.message,"Error fetching blog comment")
+   }
 }

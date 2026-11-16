@@ -82,3 +82,10 @@ export const commentBlogService=async(comment,id)=>{
   return blogs;
 
 }
+
+export const getBlogCommentService=async(id)=>{
+console.log("came here")
+  const commentBlog=await Blog.findById(id);
+  return commentBlog.comments;
+
+}

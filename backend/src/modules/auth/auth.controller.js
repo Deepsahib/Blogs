@@ -1,8 +1,8 @@
 import { validateRegisterUser } from "./auth.validation.js";
 import { getRefreshTokenService, loginUserService, registerUserService } from "./auth.service.js";
-import { GoogleAuth } from "google-auth-library";
 import { errorMessage, successMessage } from "../../config/errohandler/errorhandler.js";
 import { verifyJwt } from "../../config/jwt/jwt.js";
+import { User } from "../users/user.model.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -74,5 +74,21 @@ export const refreshToken = async (req, res) => {
     return successMessage(res, 200, true, getrefreshToken, "confirguring token", "hitted refresh token");
   } catch (error) {
     return errorMessage(res, 400, false, error.message, "Erron in refresh token");
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const queryemail = email.toLowerCase();
+    const isemailExist = await User.findOne({ email });
+    if (isemailExist) {
+      return successMessage(res, 200, true, isemailExist, "Verification email has been to this email");
+    }
+    if (!isemailExist) {
+      return errorMessage(res, 400, false, "No email has been found", "Error");
+    }
+  } catch (error) {
+    return errorMessage(res, 400, false, error.message, "Error");
   }
 };
