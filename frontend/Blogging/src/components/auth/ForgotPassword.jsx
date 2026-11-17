@@ -12,8 +12,7 @@ const ForgotPassword = () => {
       console.log("response", response.message);
       toast.success(response.data.message);
     } catch (error) {
-      console.log("error is ",error)
-      console.dir("error is ",error)
+   
       toast.error(error.response.data.error);
     }
   }

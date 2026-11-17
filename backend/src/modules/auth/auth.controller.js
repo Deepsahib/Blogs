@@ -3,6 +3,7 @@ import { getRefreshTokenService, loginUserService, registerUserService } from ".
 import { errorMessage, successMessage } from "../../config/errohandler/errorhandler.js";
 import { verifyJwt } from "../../config/jwt/jwt.js";
 import { User } from "../users/user.model.js";
+import sendEmail from "../../config/email.service.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -83,6 +84,7 @@ export const forgotPassword = async (req, res) => {
     const queryemail = email.toLowerCase();
     const isemailExist = await User.findOne({ email });
     if (isemailExist) {
+      sendEmail(email);
       return successMessage(res, 200, true, isemailExist, "Verification email has been to this email");
     }
     if (!isemailExist) {
